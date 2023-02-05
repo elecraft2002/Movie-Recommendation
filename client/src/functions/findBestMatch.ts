@@ -26,7 +26,6 @@ const findBestMatch = async (ids: number[]) => {
     };
     for (let i = 0; i < ids.length; i++) {
         const id = ids[i];
-        console.log(id)
         const responseKeywords = await fetch(
             `https://api.themoviedb.org/3/movie/${id}/keywords?api_key=${TMDB_API_KEY}&external_source=imdb_id`
         );
@@ -35,6 +34,7 @@ const findBestMatch = async (ids: number[]) => {
         );
         const dataKeywords = await responseKeywords.json();
         const dataDetails = await responseDetails.json();
+        console.log(dataDetails.original_title)
         moviesData.keywords.push(...dataKeywords.keywords.slice(0, settings.numberOfKeywords))
         moviesData.genres.push(...dataDetails.genres)
 
@@ -42,8 +42,11 @@ const findBestMatch = async (ids: number[]) => {
     console.log(moviesData)
 
     const data = await fetch(
-        `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&sort_by=popularity.desc&include_adult=true&include_video=false&page=1&with_genres=${moviesData.genres.join(",")}&with_keywords=${moviesData.keywords.join(",")}&with_watch_monetization_types=flatrate`
+        `https://api.themoviedb.org/3/movie/${ids[0]}/similar?api_key=${TMDB_API_KEY}`
     )
+    // const data = await fetch(
+    //     `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&sort_by=popularity.desc&include_adult=true&include_video=false&page=1&with_genres=${moviesData.genres.join(",")}&with_keywords=${moviesData.keywords.join(",")}&with_watch_monetization_types=flatrate`
+    // )
     // const response = await data.json()
     // console.log(response)
     return await data.json()

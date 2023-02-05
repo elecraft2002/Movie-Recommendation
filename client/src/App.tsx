@@ -7,7 +7,7 @@ function App() {
   const [viewers, setNumberOfViewers] = useState<number>(2)
   const [results, setResults] = useState([]);
   useEffect(() => {
-    findBestMatch([218601, 121]).then(res => {
+    findBestMatch([121]).then(res => {
       console.log(res)
       setResults(res.results)
     })
