@@ -9,6 +9,9 @@ const SearchBar = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      // const response = await fetch(
+      //   `https://v3.sg.media-imdb.com/suggestion/titles/x/${encodeURIComponent(searchTerm)}.json?includeVideos=1`
+      // );
       const response = await fetch(
         `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${searchTerm}`
       );
@@ -21,7 +24,7 @@ const SearchBar = () => {
     }
   }, [searchTerm]);
 
-  const handleSearchTermChange =( event:any) => {
+  const handleSearchTermChange = (event: any) => {
     setSearchTerm(event.target.value);
   };
 
@@ -33,8 +36,8 @@ const SearchBar = () => {
         onChange={handleSearchTermChange}
       />
       <ul>
-        {results.map((movie:any) => (
-          <li key={movie.id}>{movie.title}</li>
+        {results.map((movie: any) => (
+          <li key={movie.id}>{movie.title}, id: {movie.id}</li>
         ))}
       </ul>
     </div>
